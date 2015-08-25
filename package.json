@@ -1,0 +1,26 @@
+{
+  "name": "aurelia-start",
+  "version": "1.0.0",
+  "description": "Starting point for an Aurelia application",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.0"
+  },
+  "scripts": {
+    "test": "gulp test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/weagle08/aurelia-start.git"
+  },
+  "author": "weagle08",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/weagle08/aurelia-start/issues"
+  },
+  "homepage": "https://github.com/weagle08/aurelia-start#readme"
+}
