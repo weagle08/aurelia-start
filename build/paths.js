@@ -5,8 +5,7 @@ var appRoot = 'src/';
 var outRoot = 'dist/';
 
 module.exports = {
-    root: appRoot,
-    models: appRoot + 'models/**/*.js',
+    root: appRoot,    
     views: appRoot + 'vvm/**/*.html',
     viewModels: appRoot + 'vvm/**/*.js',
     styles: {
