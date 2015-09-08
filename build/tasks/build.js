@@ -7,6 +7,8 @@ var babel = require('gulp-babel');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
+var sass = require('gulp-sass');
+var less = require('gulp-less');
 var paths = require('../paths');
 var compileOptions = require('../babel-options');
 
@@ -21,21 +23,49 @@ gulp.task('build-view-models', function(){
 });
 
 gulp.task('build-views', function(){
-	
+	return gulp.src(paths.views)
+		.pipe(changed(paths.output.views, {extension: '.html'}))
+		.pipe(gulp.dest(paths.output.views));
+});
+
+gulp.task('build-main', function(){
+	return gulp.src(paths.main)
+		.pipe(changed(paths.output.root, {extension: '.html'}))
+		.pipe(gulp.dest(paths.output.root));
 });
 
 gulp.task('build-sass', function(){
-	
+	return gulp.src(paths.styles.sass)
+		.pipe(changed(paths.output.styles, {extension: '.sass'}))
+		.pipe(sass())
+		.pipe(gulp.dest(paths.output.styles))
+});
+
+gulp.task('build-less', function(){
+	return gulp.src(paths.styles.less)
+		.pipe(changed(paths.output.styles, {extension: '.less'}))
+		.pipe(sourcemaps.init())
+		.pipe(less())
+		.pipe(sourcemaps.write())
+		.pipe(gulp.dest(paths.output.styles));
 });
 
 gulp.task('build-css', function(){
-	
+	return gulp.src(paths.styles.css)
+		.pipe(changed(paths.output.styles, {extension: '.css'}))
+		.pipe(gulp.dest(paths.output.styles));
+});
+
+gulp.task('move-config', function(){
+	return gulp.src(paths.scripts.config)
+		.pipe(changed(paths.output.scripts.config, {extension: '.js'}))
+		.pipe(gulp.dest(paths.output.scripts.config));
 });
 
 gulp.task('build', function(callback){
 	return runSequence(
 		'clean',
-		['build-view-models', 'build-views', 'build-sass', 'build-css'],
+		['build-view-models', 'build-views', 'build-main', 'build-sass', 'build-less', 'build-css', 'move-config'],
 		callback
 	);
 });
