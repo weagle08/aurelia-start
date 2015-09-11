@@ -15,17 +15,17 @@ var compileOptions = require('../babel-options');
 gulp.task('build-view-models', function(){
 	return gulp.src(paths.viewModels)
 		.pipe(plumber())
-		.pipe(changed(paths.output.viewModels, {extension: '.js'}))
+		.pipe(changed(paths.output.vvm, {extension: '.js'}))
 		.pipe(sourcemaps.init({loadMaps: true}))
 		.pipe(babel(compileOptions))
 		.pipe(sourcemaps.write({includeContent: true}))
-		.pipe(gulp.dest(paths.output.viewModels));
+		.pipe(gulp.dest(paths.output.vvm));
 });
 
 gulp.task('build-views', function(){
 	return gulp.src(paths.views)
-		.pipe(changed(paths.output.views, {extension: '.html'}))
-		.pipe(gulp.dest(paths.output.views));
+		.pipe(changed(paths.output.vvm, {extension: '.html'}))
+		.pipe(gulp.dest(paths.output.vvm));
 });
 
 gulp.task('build-main', function(){
@@ -58,8 +58,8 @@ gulp.task('build-css', function(){
 
 gulp.task('move-config', function(){
 	return gulp.src(paths.scripts.config)
-		.pipe(changed(paths.output.scripts.config, {extension: '.js'}))
-		.pipe(gulp.dest(paths.output.scripts.config));
+		.pipe(changed(paths.output.root, {extension: '.js'}))
+		.pipe(gulp.dest(paths.output.root));
 });
 
 gulp.task('build', function(callback){

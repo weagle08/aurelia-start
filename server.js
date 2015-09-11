@@ -10,31 +10,15 @@ var morgan = require('morgan');
 var fs = require('fs');
 var bunyan = require('bunyan');
 
-var cfg = fs.readFileSync('./app.config', 'utf8');
-var jsonCfg = JSON.parse(cfg);
-process.appConfig = jsonCfg;
-
-var log = bunyan.createLogger({
-  name: process.appConfig.logging.name,
-  serializers: bunyan.stdSerializers,
-  streams: [{
-    level: process.appConfig.logging.level,
-    path: process.appConfig.logging.path
-  }]
-});
-
-process.logger = log;
-
 var app = express();
 app.appConfig = process.appConfig;
-app.logger = log;
 
 //set the default port
 //TODO: set to desired port
 app.set('port', process.env.PORT || 4000);
 
 app.use(morgan('dev'));
-app.use(express.static(path.join(__dirname, 'www')));
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.all('*', function (req, res, next) {
   res.header('Access-Control-Allow-Origin', req.headers.origin);

@@ -19,12 +19,8 @@ module.exports = {
     },
     output: {
         root: outRoot,
-        viewModels: outRoot + 'vvm/',
-        views: outRoot + 'vvm/',
+        vvm: outRoot + 'vvm/',
         styles: outRoot + 'styles/',
-        scripts: {
-            config: outRoot
-        },
         jspm: outRoot + 'jspm_packages'
     },
     documentation:'./docs',

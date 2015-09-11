@@ -11,7 +11,7 @@ System.config({
     ]
   },
   paths: {
-    "*": "dist/*",
+    "*": "vvm/*",
     "github:*": "jspm_packages/github/*",
     "npm:*": "jspm_packages/npm/*"
   },

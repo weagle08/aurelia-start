@@ -8,9 +8,7 @@
     "baseURL": "dist",
     "packages": "dist\\jspm_packages"
   },
-  "dependencies": {
-    "jspm": "^0.16.2"
-  },
+  "dependencies": {},
   "devDependencies": {
     "babel": "^5.8.23",
     "bunyan": "^1.4.0",
