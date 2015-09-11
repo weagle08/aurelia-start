@@ -6,12 +6,8 @@
  */
 var express = require('express');
 var path = require('path');
-var morgan = require('morgan');
-var fs = require('fs');
-var bunyan = require('bunyan');
 
 var app = express();
-app.appConfig = process.appConfig;
 
 //set the default port
 //TODO: set to desired port
