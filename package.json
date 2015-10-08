@@ -48,6 +48,7 @@
     "configFile": "config.js",
     "dependencies": {
       "aurelia-bootstrapper": "github:aurelia/bootstrapper@^0.17.0",
+      "aurelia/framework": "github:aurelia/framework@^0.16.0",
       "font-awesome": "npm:font-awesome@^4.4.0"
     },
     "devDependencies": {

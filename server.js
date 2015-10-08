@@ -13,7 +13,6 @@ var app = express();
 //TODO: set to desired port
 app.set('port', process.env.PORT || 4000);
 
-app.use(morgan('dev'));
 app.use(express.static(path.join(__dirname, 'dist')));
 
 app.all('*', function (req, res, next) {
