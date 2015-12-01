@@ -5,6 +5,6 @@ var vinylPaths = require('vinyl-paths');
 
 // deletes all files in the output path
 gulp.task('clean', function() {
-  return gulp.src([paths.output.vvm, paths.output.root + 'index.html', paths.output.root + 'config.js', paths.output.styles])
+  return gulp.src(paths.output)
     .pipe(vinylPaths(del));
 });
