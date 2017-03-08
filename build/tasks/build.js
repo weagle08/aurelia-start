@@ -1,63 +1,54 @@
-/**
- * Created by ben on 8/24/2015.
- */
-var gulp = require('gulp');
-var runSequence = require('run-sequence');
-var babel = require('gulp-babel');
-var changed = require('gulp-changed');
-var plumber = require('gulp-plumber');
-var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
-var paths = require('../paths');
-var compileOptions = require('../babel-options');
-var assign = Object.assign || require('object.assign');
-var notify = require('gulp-notify');
+const gulp = require('gulp');
+const runSequence = require('run-sequence');
+const changed = require('gulp-changed');
+const plumber = require('gulp-plumber');
+const builder = require('gulp-babel');
+const sass = require('gulp-sass');
+const sourcemaps = require('gulp-sourcemaps');
+const compileOptions = require('../babel-options');
+//const assign = Object.assign || require('object.assign');
+const notify = require('gulp-notify');
+const browserSync = require('browser-sync');
+const paths = new (require('../paths'))();
+const gulpif = require('gulp-if');
+const argv = require('yargs').argv;
 
-gulp.task('build-system', function(){
-	return gulp.src([paths.source, '!' + paths.jspm, '!' + paths.config])
-		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-		.pipe(changed(paths.output, {extension: '.js'}))
-		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(babel(assign({}, compileOptions, {modules: 'system'})))
-		.pipe(sourcemaps.write({includeContent: true}))
-		.pipe(gulp.dest(paths.output));
+gulp.task('build-client-js', () => {
+        return gulp.src(paths.input.js)
+            .pipe(plumber({errorHandler: notify.onError('Error: <% error.message %>')}))
+            .pipe(changed(paths.output.client, {extension: '.js'}))
+            .pipe(gulpif(!argv.production, sourcemaps.init({loadMaps: true})))
+			//.pipe(sourcemaps.init({loadMaps: true}))
+            .pipe(builder(Object.assign({}, compileOptions.systemjs())))
+            .pipe(gulpif(!argv.production, sourcemaps.write({includeContent: true})))
+			//.pipe(sourcemaps.write('.', {includeContent: true}))
+            .pipe(gulp.dest(paths.output.client));
 });
 
-gulp.task('build-html', function(){
-	return gulp.src([paths.html, '!' + paths.jspm])
-		.pipe(changed(paths.output, {extension: '.html'}))
-		.pipe(gulp.dest(paths.output));
+gulp.task('build-html', () => {
+    return gulp.src(paths.input.html)
+        .pipe(changed(paths.output.client, {extension: '.html'}))
+        .pipe(gulp.dest(paths.output.client));
 });
 
 gulp.task('build-sass', function(){
-	return gulp.src([paths.sass, '!' + paths.jspm])
-			.pipe(changed(paths.output, {extension: '.css'}))
-			.pipe(sass())
-			.pipe(gulp.dest(paths.output))
+    return gulp.src(paths.input.sass)
+        .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+        .pipe(changed(paths.output.client, {extension: '.css'}))
+        .pipe(sass())
+        .pipe(gulp.dest(paths.output.client))
 });
 
-gulp.task('build-css', function(){
-	return gulp.src([paths.css, '!' + paths.jspm])
-			.pipe(changed(paths.output, {extension: '.css'}))
-			.pipe(gulp.dest(paths.output));
+gulp.task('move', function(){
+    return gulp.src(paths.input.moveOnly, {base: 'client'})
+        .pipe(changed(paths.output.client))
+        .pipe(gulp.dest(paths.output.client));
 });
 
-gulp.task('move-config', function(){
-	return gulp.src(paths.config)
-		.pipe(changed(paths.output))
-		.pipe(gulp.dest(paths.output));
-});
-
-gulp.task('move-jspm', function(){
-	return gulp.src(paths.jspm)
-			.pipe(changed(paths.jspmOut))
-			.pipe(gulp.dest(paths.jspmOut));
-});
-
-gulp.task('build', function(callback){
-	return runSequence(
-		'clean',
-		['build-system', 'build-html', 'build-sass', 'build-css', 'move-jspm', 'move-config'],
-		callback
-	);
+gulp.task('build', (callback) => {
+    return runSequence(
+        'clean',
+        ['build-client-js', 'build-html', 'build-sass', 'move'],
+        callback
+    );
 });

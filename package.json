@@ -7,42 +7,49 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
+  "devDependencies": {
+    "aurelia-bundler": "^0.6.0-beta.3",
+    "aurelia-tools": "^1.0.0",
+    "babel-core": "^6.23.1",
+    "babel-eslint": "^7.1.1",
+    "babel-plugin-syntax-flow": "^6.18.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-plugin-transform-flow-strip-types": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "browser-sync": "^2.18.8",
+    "chai": "^3.5.0",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-changed": "^2.0.0",
+    "gulp-eslint": "^3.0.1",
+    "gulp-htmlmin": "^3.0.0",
+    "gulp-if": "^2.0.2",
+    "gulp-notify": "^3.0.0",
+    "gulp-plumber": "^1.1.0",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.4.1",
+    "gulp-spawn-mocha": "^3.1.0",
+    "istanbul": "^0.4.5",
+    "jspm": "^0.16.52",
+    "mocha": "^3.2.0",
+    "require-dir": "^0.3.1",
+    "run-sequence": "^1.2.2",
+    "vinyl-paths": "^2.1.0",
+    "yargs": "^7.0.1"
+  },
   "jspm": {
     "directories": {
       "baseURL": "client"
     },
     "dependencies": {
-      "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^1.0.0-beta.1",
-      "aurelia-framework": "npm:aurelia-framework@^1.0.0-beta.1.0.2",
-      "components/jquery": "github:components/jquery@^2.1.4",
-      "css": "github:systemjs/plugin-css@^0.1.20",
-      "font-awesome": "npm:font-awesome@^4.5.0",
-      "semantic-ui": "github:Semantic-Org/Semantic-UI@^2.1.6"
+      "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^2.1.1",
+      "aurelia-framework": "npm:aurelia-framework@^1.1.0",
+      "aurelia-pal-browser": "npm:aurelia-pal-browser@^1.1.0",
+      "css": "github:systemjs/plugin-css@^0.1.32",
+      "text": "github:systemjs/plugin-text@^0.0.9"
     },
-    "devDependencies": {
-      "babel": "npm:babel-core@^5.8.24",
-      "babel-runtime": "npm:babel-runtime@^5.8.24",
-      "core-js": "npm:core-js@^1.1.4"
-    }
-  },
-  "devDependencies": {
-    "babel": "^5.8.34",
-    "babel-eslint": "^4.1.6",
-    "del": "^2.1.0",
-    "gulp-babel": "^5.3.0",
-    "gulp-changed": "^1.3.0",
-    "gulp-eslint": "^1.1.1",
-    "gulp-jshint": "^2.0.0",
-    "gulp-mocha": "^2.2.0",
-    "gulp-notify": "^2.2.0",
-    "gulp-plumber": "^1.0.1",
-    "gulp-sass": "^2.1.0",
-    "gulp-sourcemaps": "^1.6.0",
-    "jshint": "^2.8.0",
-    "jshint-stylish": "^2.1.0",
-    "object.assign": "^4.0.3",
-    "require-dir": "^0.3.0",
-    "run-sequence": "^1.1.5",
-    "vinyl-paths": "^2.1.0"
+    "devDependencies": {}
   }
 }

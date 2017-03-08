@@ -1,11 +1,8 @@
-/**
- * Created by weagl on 11/21/2015.
- */
-var gulp = require('gulp');
-var paths = require('../paths');
-var mocha = require('gulp-mocha');
+let gulp = require('gulp');
+let mocha = require('gulp-spawn-mocha');
+let paths = new (require('../paths'))();
 
-gulp.task('mocha-server-test', function(){
-    return gulp.src(paths.test)
-        .pipe(mocha({reporter: 'spec'}));
+gulp.task('test', () => {
+    return gulp.src(paths.input.test, {read: false})
+        .pipe(mocha());
 });

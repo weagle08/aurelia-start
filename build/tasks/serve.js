@@ -1,6 +1,3 @@
-/**
- * Created by weagl on 11/21/2015.
- */
 var gulp = require('gulp');
 var browserSync = require('browser-sync');
 
@@ -11,7 +8,22 @@ gulp.task('serve', ['build'], function(done) {
     browserSync({
         online: false,
         open: false,
-        port: 9000,
+        port: 8080,
+        server: {
+            baseDir: ['./www'],
+            middleware: function(req, res, next) {
+                res.setHeader('Access-Control-Allow-Origin', '*');
+                next();
+            }
+        }
+    }, done);
+});
+
+gulp.task('serve-only', [], function(done) {
+    browserSync({
+        online: false,
+        open: false,
+        port: 8080,
         server: {
             baseDir: ['./www'],
             middleware: function(req, res, next) {
@@ -26,7 +38,7 @@ gulp.task('serve-proxy', ['build'], function(done) {
     browserSync({
         online: false,
         open: false,
-        port: 9000,
-        proxy: 'localhost:20009'
+        port: 8080,
+        proxy: 'localhost:443'
     }, done);
 });
