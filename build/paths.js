@@ -1,19 +1,17 @@
-/**
- * Created by ben on 8/25/15.
- */
-var appRoot = 'client/';
-var outRoot = 'www/';
+var appRoot = 'src/';
+var outputRoot = 'dist/';
+var exporSrvtRoot = 'export/'
 
 module.exports = {
-    root: appRoot,
-    source: appRoot + '**/*.js',
-    html: appRoot + '**/*.html',
-    css: appRoot + '**/*.css',
-    sass: appRoot + '**/*.scss',
-    jspm: appRoot + 'jspm_packages/**/*',
-    config: appRoot + 'config.js',
-    test: 'test/**/*.js',
-    output: outRoot,
-    doc: '/.doc',
-    jspmOut: outRoot + 'jspm_packages'
-};
+  root: appRoot,
+  source: appRoot + '**/*.ts',
+  html: appRoot + '**/*.html',
+  scss: appRoot + '**/*.scss',
+  output: outputRoot,
+  exportSrv: exporSrvtRoot,
+  doc: './doc',
+  dtsSrc: [
+    './typings/**/*.d.ts',
+    './custom_typings/**/*.d.ts'
+  ]
+}

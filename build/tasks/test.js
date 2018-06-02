@@ -1,11 +1,15 @@
-/**
- * Created by weagl on 11/21/2015.
- */
 var gulp = require('gulp');
-var paths = require('../paths');
-var mocha = require('gulp-mocha');
 
-gulp.task('mocha-server-test', function(){
-    return gulp.src(paths.test)
-        .pipe(mocha({reporter: 'spec'}));
+/**
+ * Run test once and exit
+ */
+gulp.task('test', ['clean'], function (done) {
+
+});
+
+/**
+ * Watch for file changes and re-run tests on each change
+ */
+gulp.task('tdd', ['clean'], function (done) {
+
 });

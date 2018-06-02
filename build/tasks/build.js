@@ -1,63 +1,63 @@
-/**
- * Created by ben on 8/24/2015.
- */
 var gulp = require('gulp');
 var runSequence = require('run-sequence');
-var babel = require('gulp-babel');
 var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
-var sass = require('gulp-sass');
 var paths = require('../paths');
-var compileOptions = require('../babel-options');
 var assign = Object.assign || require('object.assign');
 var notify = require('gulp-notify');
+var browserSync = require('browser-sync');
+var typescript = require('gulp-typescript');
+var htmlmin = require('gulp-htmlmin');
+var sass = require('gulp-sass');
 
-gulp.task('build-system', function(){
-	return gulp.src([paths.source, '!' + paths.jspm, '!' + paths.config])
-		.pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-		.pipe(changed(paths.output, {extension: '.js'}))
-		.pipe(sourcemaps.init({loadMaps: true}))
-		.pipe(babel(assign({}, compileOptions, {modules: 'system'})))
-		.pipe(sourcemaps.write({includeContent: true}))
-		.pipe(gulp.dest(paths.output));
+// transpiles changed es6 files to SystemJS format
+// the plumber() call prevents 'pipe breaking' caused
+// by errors from other gulp plugins
+// https://www.npmjs.com/package/gulp-plumber
+var typescriptCompiler = typescriptCompiler || null;
+gulp.task('build-system', function () {
+  if (!typescriptCompiler) {
+    typescriptCompiler = typescript.createProject('tsconfig.json', {
+      "typescript": require('typescript')
+    });
+  }
+
+  return gulp.src(paths.dtsSrc.concat(paths.source))
+    .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
+    .pipe(changed(paths.output, { extension: '.ts' }))
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(typescriptCompiler())
+    .pipe(sourcemaps.write('.', { includeContent: false, sourceRoot: './' }))
+    .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build-html', function(){
-	return gulp.src([paths.html, '!' + paths.jspm])
-		.pipe(changed(paths.output, {extension: '.html'}))
-		.pipe(gulp.dest(paths.output));
+// copies changed html files to the output directory
+gulp.task('build-html', function () {
+  return gulp.src(paths.html)
+    .pipe(plumber({ errorHandler: notify.onError('Error: <%= error.message %>') }))
+    .pipe(changed(paths.output, { extension: '.html' }))
+    .pipe(htmlmin({ collapseWhitespace: true }))
+    .pipe(gulp.dest(paths.output));
 });
 
-gulp.task('build-sass', function(){
-	return gulp.src([paths.sass, '!' + paths.jspm])
-			.pipe(changed(paths.output, {extension: '.css'}))
-			.pipe(sass())
-			.pipe(gulp.dest(paths.output))
+// copies changed css files to the output directory
+gulp.task('build-scss', function () {
+  return gulp.src(paths.scss)
+    .pipe(changed(paths.output, { extension: '.scss' }))
+    .pipe(sass())
+    .pipe(gulp.dest(paths.output))
+    .pipe(browserSync.stream());
 });
 
-gulp.task('build-css', function(){
-	return gulp.src([paths.css, '!' + paths.jspm])
-			.pipe(changed(paths.output, {extension: '.css'}))
-			.pipe(gulp.dest(paths.output));
-});
-
-gulp.task('move-config', function(){
-	return gulp.src(paths.config)
-		.pipe(changed(paths.output))
-		.pipe(gulp.dest(paths.output));
-});
-
-gulp.task('move-jspm', function(){
-	return gulp.src(paths.jspm)
-			.pipe(changed(paths.jspmOut))
-			.pipe(gulp.dest(paths.jspmOut));
-});
-
-gulp.task('build', function(callback){
-	return runSequence(
-		'clean',
-		['build-system', 'build-html', 'build-sass', 'build-css', 'move-jspm', 'move-config'],
-		callback
-	);
+// this task calls the clean task (located
+// in ./clean.js), then runs the build-system
+// and build-html tasks in parallel
+// https://www.npmjs.com/package/gulp-run-sequence
+gulp.task('build', function (callback) {
+  return runSequence(
+    'clean',
+    ['build-system', 'build-html', 'build-scss'],
+    callback
+  );
 });
