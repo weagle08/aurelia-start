@@ -6,14 +6,13 @@
     "aurelia",
     "typescript",
     "vscode"
-  ],  
+  ],
   "license": "MIT",
-  "main": "dist/main.js",  
+  "main": "dist/main.js",
   "scripts": {
     "postinstall": "jspm install"
   },
   "devDependencies": {
-    "@types/jquery": "^3.3.2",
     "alertifyjs": "^1.11.1",
     "aurelia-bundler": "^0.7.0",
     "aurelia-dependency-injection": "^1.3.2",
@@ -50,12 +49,10 @@
     "yargs": "^11.0.0"
   },
   "dependencies": {
-    "electron": "^2.0.2",
-    "jquery": "^3.3.1"
+    "electron": "^2.0.2"
   },
   "jspm": {
     "dependencies": {
-      "alertifyjs": "npm:alertifyjs@^1.11.1",
       "aurelia-animator-css": "npm:aurelia-animator-css@^1.0.4",
       "aurelia-bootstrapper": "npm:aurelia-bootstrapper@^2.2.0",
       "aurelia-dependency-injection": "npm:aurelia-dependency-injection@^1.3.2",
