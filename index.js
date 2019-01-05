@@ -1,9 +1,3 @@
-//Note: This file is provided as an aid to help you get up and running with
-//Electron for desktop apps. See the readme file for more information.
-/* eslint-disable strict, no-var, no-console */
-
-'use strict';
-
 const electron = require('electron');
 const {app} = electron;
 const {BrowserWindow} = electron;
@@ -16,9 +10,12 @@ app.on('window-all-closed', () => {
 });
 
 app.on('ready', () => {
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
+  mainWindow = new BrowserWindow({    
+    autoHideMenuBar: true,
+    darkTheme: true,
+    vibrancy: 'dark',
+    backgroundColor: '#333333',
+    fullscreen: false,
     // Note: The following line turns off Node integration to allow 
     // jQuery to work properly. If you need Node integration, please
     // see the Electron FAQ for how to enable this:
@@ -28,7 +25,8 @@ app.on('ready', () => {
     }
   });
 
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
+  //mainWindow.maximize();
+  mainWindow.loadURL(`http://localhost:9000`);
   mainWindow.webContents.on('did-finish-load', () => {
     mainWindow.setTitle(app.getName());
   });

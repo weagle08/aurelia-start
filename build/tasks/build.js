@@ -4,7 +4,6 @@ var changed = require('gulp-changed');
 var plumber = require('gulp-plumber');
 var sourcemaps = require('gulp-sourcemaps');
 var paths = require('../paths');
-var assign = Object.assign || require('object.assign');
 var notify = require('gulp-notify');
 var browserSync = require('browser-sync');
 var typescript = require('gulp-typescript');

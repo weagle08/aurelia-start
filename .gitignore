@@ -1,11 +1,7 @@
 node_modules
+dist
 jspm_packages
-bower_components
-.idea
-.DS_STORE
-/dist
-build/reports
-coverage
-test/e2e/dist
-/typings
-/export
+
+# if you accidently open your code folder in Visual Studio instead of the Code IDE, it creates a .vs folder
+.vs
+package-lock.json

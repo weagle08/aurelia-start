@@ -9,7 +9,7 @@ module.exports = {
   scss: appRoot + '**/*.scss',
   output: outputRoot,
   exportSrv: exporSrvtRoot,
-  doc: './doc',
+  doc: './doc',  
   dtsSrc: [
     './typings/**/*.d.ts',
     './custom_typings/**/*.d.ts'
